@@ -10,6 +10,9 @@ mv /usr/share/nginx/html/register.tmp.html /usr/share/nginx/html/register.html
 envsubst '${API_URL}' < /usr/share/nginx/html/watch.html > /usr/share/nginx/html/watch.tmp.html
 mv /usr/share/nginx/html/watch.tmp.html /usr/share/nginx/html/watch.html
 
+envsubst '${API_URL}' < /usr/share/nginx/html/search.html > /usr/share/nginx/html/search.tmp.html
+mv /usr/share/nginx/html/search.tmp.html /usr/share/nginx/html/search.html
+
 
 # Start Nginx
 nginx -g 'daemon off;'
