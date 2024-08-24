@@ -17,7 +17,6 @@ COPY . .
 EXPOSE 3000
 
 # Set environment variables for the MySQL connection
-ENV DB_HOST=65.2.191.204
 ENV DB_USER=admin
 ENV DB_PASSWORD=redhat
 ENV DB_NAME=movie_db
