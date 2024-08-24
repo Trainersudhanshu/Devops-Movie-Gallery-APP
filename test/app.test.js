@@ -8,10 +8,10 @@ let db;
 
 before(async () => {
     db = await mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: 'yourpassword',
-        database: 'movies_db'
+        host: '43.204.29.12',
+        user: 'admin',
+        password: 'redhat',
+        database: 'movie_db'
     });
 });
 
