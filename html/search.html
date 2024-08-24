@@ -73,7 +73,7 @@
             event.preventDefault();
 
             const query = document.getElementById('query').value;
-            fetch(`http://65.2.191.204:3000/movies/search?query=${encodeURIComponent(query)}`)
+            fetch('http://${API_URL}:3000/movies/search?query=${encodeURIComponent(query)}`)
                 .then(response => response.json())
                 .then(data => {
                     const resultsDiv = document.getElementById('results');
