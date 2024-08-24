@@ -7,56 +7,56 @@ on:
 
 
 jobs:
-  # build:
-  #   name: Build and analyze
-  #   runs-on: ubuntu-latest
-    
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #       with:
-  #         fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-  #     - uses: sonarsource/sonarqube-scan-action@master
-  #       env:
-  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  #         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-  #     # If you wish to fail your job when the Quality Gate is red, uncomment the
-  #     # following lines. This would typically be used to fail a deployment.
-  #     - uses: sonarsource/sonarqube-quality-gate-action@master
-  #       timeout-minutes: 5
-  #       env:
-  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          
-  docker-build-and-push-to-dockerhub:
+  build:
+    name: Build and analyze
     runs-on: ubuntu-latest
+    
     steps:
-      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      -
-        name: Login to Docker Hub
-        uses: docker/login-action@v3
+      - uses: actions/checkout@v4
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-        
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      -
-        name: Build and push root Dockerfile
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: jinny1/movie-app-backend-nodejs:latest
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      # If you wish to fail your job when the Quality Gate is red, uncomment the
+      # following lines. This would typically be used to fail a deployment.
+      - uses: sonarsource/sonarqube-quality-gate-action@master
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           
-      - name: Build and push html folder Dockerfile
-        uses: docker/build-push-action@v5
-        with:
-          context: ./html
-          file: ./html/Dockerfile
-          push: true
-          tags: jinny1/movie-app-frontend:latest
+  # docker-build-and-push-to-dockerhub:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     -
+  #       name: Set up QEMU
+  #       uses: docker/setup-qemu-action@v3
+  #     -
+  #       name: Set up Docker Buildx
+  #       uses: docker/setup-buildx-action@v3
+  #     -
+  #       name: Login to Docker Hub
+  #       uses: docker/login-action@v3
+  #       with:
+  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
+  #         password: ${{ secrets.DOCKERHUB_TOKEN }}
+        
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v3
+  #     -
+  #       name: Build and push root Dockerfile
+  #       uses: docker/build-push-action@v5
+  #       with:
+  #         context: .
+  #         file: ./Dockerfile
+  #         push: true
+  #         tags: jinny1/movie-app-backend-nodejs:latest
+          
+  #     - name: Build and push html folder Dockerfile
+  #       uses: docker/build-push-action@v5
+  #       with:
+  #         context: ./html
+  #         file: ./html/Dockerfile
+  #         push: true
+  #         tags: jinny1/movie-app-frontend:latest
